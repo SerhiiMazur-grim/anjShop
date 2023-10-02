@@ -14,7 +14,7 @@ from dotenv import dotenv_values
 from pathlib import Path
 
 
-KEYS = {
+ENV_DATA = {
     **dotenv_values('.env')
 }
 
@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = KEYS['SECRET_KEY']
+SECRET_KEY = ENV_DATA['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'rest_framework',
+    
+    'user',
+    
 ]
 
 MIDDLEWARE = [
@@ -82,11 +87,11 @@ WSGI_APPLICATION = 'anjShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': KEYS['DB_NAME'],
-        'USER': KEYS['USER'],
-        'PASSWORD': KEYS['PASSWORD'],
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': ENV_DATA['DB_NAME'],
+        'USER': ENV_DATA['USER'],
+        'PASSWORD': ENV_DATA['PASSWORD'],
+        'HOST': ENV_DATA['HOST'],
+        'PORT': ENV_DATA['PORT']
     }
 }
 
@@ -131,3 +136,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}

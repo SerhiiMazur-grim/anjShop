@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'anjShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'anjshop_database',
-        'USER': 'grimm',
-        'PASSWORD': '791357so',
+        'NAME': KEYS['DB_NAME'],
+        'USER': KEYS['USER'],
+        'PASSWORD': KEYS['PASSWORD'],
         'HOST': 'localhost',
         'PORT': '5432'
     }

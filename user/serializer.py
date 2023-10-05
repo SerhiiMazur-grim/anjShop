@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import get_user_model
 
 
@@ -48,10 +48,11 @@ class ChangeUserPasswordSerializer(serializers.ModelSerializer):
         }
         
     def validate_current_password(self, value):
-        user = authenticate(email=self.context['request'].user.email, password=value)
-        if user is None:
+        user = self.context['request'].user
+
+        if not check_password(value, user.password):
             raise serializers.ValidationError(_('Current password is incorrect.'))
-        
+
         return value
 
     def update(self, instance, validated_data):

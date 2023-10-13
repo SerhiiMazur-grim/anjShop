@@ -50,6 +50,9 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 
 class UserDeleteView(generics.DestroyAPIView):
+    """
+    API view for delet User instance.
+    """
     queryset = User.objects.all()
 
     def delete(self, request, *args, **kwargs):

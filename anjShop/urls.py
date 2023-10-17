@@ -6,5 +6,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('', include('user.urls')),
     path('', include('product.urls')),
+    path('', include('cart.urls')),
     
 ]

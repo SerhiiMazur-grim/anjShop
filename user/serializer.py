@@ -4,6 +4,8 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import get_user_model
 
+from cart.models import Cart
+
 
 User = get_user_model()
 
@@ -18,6 +20,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
+        Cart.objects.create(user=user)
         return user
 
 
